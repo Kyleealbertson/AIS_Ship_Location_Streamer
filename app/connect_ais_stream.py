@@ -2,12 +2,13 @@ import asyncio
 import websockets
 import json
 from datetime import datetime, timezone
+from Config.config import S
 
 async def connect_ais_stream(MessageTypeChoice: str="PositionReport"):
 
-    async with websockets.connect("wss://stream.aisstream.io/v0/stream") as websocket:
-        subscribe_message = {"APIKey": "a07afc829e58c75ca32938ee0951ed37c5bf8509",
-                             "BoundingBoxes": [[[-93, 41], [-75, 50]]],  # Required !
+    async with websockets.connect(S.ais_api_url) as websocket:
+        subscribe_message = {"APIKey": S.ais_api_key,
+                              "BoundingBoxes": [[[-180, -90], [180, 90]]],
                              #"FiltersShipMMSI": ["368207620", "367719770", "211476060"], # Optional!
                              "FilterMessageTypes": [MessageTypeChoice]} 
 
@@ -17,9 +18,6 @@ async def connect_ais_stream(MessageTypeChoice: str="PositionReport"):
         async for message_json in websocket:
             message = json.loads(message_json)
 
-            '''if "MessageType" not in message:
-                print("Non-data message:", message)
-                continue'''
             message_type = message["MessageType"]
 
             if message_type == MessageTypeChoice:
@@ -29,4 +27,4 @@ async def connect_ais_stream(MessageTypeChoice: str="PositionReport"):
                 print(f"[{datetime.now(timezone.utc)}] ShipId: {ais_message['UserID']} Latitude: {ais_message['Latitude']} Latitude: {ais_message['Longitude']}")
 
 if __name__ == "__main__":
-    asyncio.run((connect_ais_stream()))
+    asyncio.run((connect_ais_stream(MessageTypeChoice="PositionReport")))
