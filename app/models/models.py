@@ -16,10 +16,11 @@ class RawAIS(TypedDict, total=False):
 class Canonical(TypedDict, total=False):
     mmsi: int
     shipid: int
-    ship_name: str
+    ship_name: Optional[str]
     ts: int            # integer epoch seconds
     lat: float
     lon: float
     sog: float
     cog: float
     ship_type: Optional[str]
+    area: Optional[str]
