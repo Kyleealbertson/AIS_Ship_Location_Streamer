@@ -1,8 +1,10 @@
 # main.py
 import asyncio
+import sys
+sys.path.append("/Users/kyle_albertson/AIS_Ship_Location_Streamer/app")
 from typing import Optional, Dict, Any
 import ais_stream_producer
-from trasform_enrich import ais_stream_enrich_and_filter
+import ais_stream_enrich_and_filter  # Import the missing function
 
 async def run_demo(max_print: int = 10) -> None:
     printed = 0

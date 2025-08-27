@@ -1,6 +1,6 @@
 # services/transform_enrich/mapper.py
 from typing import Optional, Dict, Any
-from models import Canonical
+from models.models import Canonical
 
 # Optional: tiny enrichment example
 def enrich_area(lat: float, lon: float) -> Optional[str]:
@@ -43,6 +43,8 @@ async def ais_stream_enrich_and_filter(message: Dict[str, Any]) -> Optional[Cano
     cog = _safe_float(payload.get("COG"))
     heading = payload.get("Heading")
     ts = _safe_int(payload.get("Timestamp"))
+    vessel_name = payload.get("VesselName")
+    ship_type = payload.get("ShipType")
 
     # Basic validity filters (We could also move these messages to a deadletter queue)
     if mmsi <= 0:

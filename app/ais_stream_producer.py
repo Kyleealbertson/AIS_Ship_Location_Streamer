@@ -2,8 +2,9 @@ import asyncio
 import websockets
 import json
 from datetime import datetime, timezone
-from config.config import S
+from config.config import Settings
 
+S = Settings()
 async def ais_stream_producer(MessageTypeChoice: str="PositionReport"):
 
     async with websockets.connect(S.ais_api_url) as websocket:
