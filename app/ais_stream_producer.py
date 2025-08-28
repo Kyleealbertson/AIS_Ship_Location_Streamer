@@ -11,7 +11,7 @@ class AISStreamProducer:
 
         async with websockets.connect(S.ais_api_url) as websocket:
             subscribe_message = {"APIKey": S.ais_api_key,
-                                "BoundingBoxes": [[[-180, -90], [180, 90]]],
+                                "BoundingBoxes": [[[33, -114], [53, -61]]],
                                 #"FiltersShipMMSI": ["368207620", "367719770", "211476060"], # Optional!
                                 "FilterMessageTypes": [MessageTypeChoice]} 
 
