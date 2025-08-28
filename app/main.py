@@ -3,12 +3,12 @@ import asyncio
 import sys
 sys.path.append("/Users/kyle_albertson/AIS_Ship_Location_Streamer/app")
 from typing import Optional, Dict, Any
-import ais_stream_producer
-import ais_stream_enrich_and_filter  # Import the missing function
+from ais_stream_producer import AISStreamProducer
+from ais_stream_enrich_and_filter import ais_stream_enrich_and_filter
 
 async def run_demo(max_print: int = 10) -> None:
     printed = 0
-    async for raw in ais_stream_producer("PositionReport"):
+    async for raw in AISStreamProducer.ais_stream_producer("PositionReport"):
         canon = await ais_stream_enrich_and_filter(raw)
         if canon is None:
             continue

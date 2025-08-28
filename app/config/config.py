@@ -10,6 +10,7 @@ print(os.environ.get("AIS_API_URL"))
 
 class Settings(BaseSettings):
     ais_api_key: str
+    ais_api_url: str
     nats_url: str = "nats://127.0.0.1:4222"
     nats_subject_raw: str = "ais.raw"
     duckdb_path: str = "./data/shipstream.duckdb"
